@@ -34,7 +34,7 @@ def linkedin_scraper(URL: str) -> set[str]:
     SCROLL_PAUSE_TIME = 1
     driver.find_element(By.CSS_SELECTOR, "html").send_keys(Keys.END)
     last_height = driver.execute_script("return document.body.scrollHeight")
-    while 1:
+    for _ in range(5):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(SCROLL_PAUSE_TIME)
         new_height = driver.execute_script("return document.body.scrollHeight")

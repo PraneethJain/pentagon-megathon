@@ -26,7 +26,7 @@ def facebook_scraper(URL: str) -> set[str]:
     texts = set()
     SCROLL_PAUSE_TIME = 2
     last_height = driver.execute_script("return document.body.scrollHeight")
-    while 1:
+    for _ in range(5):
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
         time.sleep(SCROLL_PAUSE_TIME)
         new_height = driver.execute_script("return document.body.scrollHeight")
