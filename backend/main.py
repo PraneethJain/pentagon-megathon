@@ -33,7 +33,7 @@ from mynltk.tost import do_classify
 # with open("temp.txt", "w") as f:
 #     for text in all_texts:
 #         f.write(text)
-    
+
 all_texts: set[str] = set()
 with open("temp.txt", "r") as f:
     all_texts.update(line.strip() for line in f.readlines())
@@ -51,7 +51,14 @@ client = discovery.build(
 
 analyze_request = {
     "comment": {"text": " ".join(all_texts)},
-    "requestedAttributes": {"TOXICITY": {}},
+    "requestedAttributes": {
+        "TOXICITY": {},
+        "SEVERE_TOXICITY": {},
+        "IDENTITY_ATTACK": {},
+        "INSULT": {},
+        "PROFANITY": {},
+        "THREAT": {},
+    },
 }
 
 response = client.comments().analyze(body=analyze_request).execute()
