@@ -32,6 +32,7 @@ def linkedin_scraper(URL: str) -> set[str]:
             By.CSS_SELECTOR, ".t-14.t-black--light.t-normal.mb1"
         ).text.strip()
     except:
+        driver.close()
         return set()
 
     SCROLL_PAUSE_TIME = 1
