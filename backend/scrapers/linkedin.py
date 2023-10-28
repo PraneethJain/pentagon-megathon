@@ -9,6 +9,7 @@ import time
 USERNAME = "awesome.harsh8@gmail.com"
 PASSWORD = "harshharsh"
 
+
 def linkedin_scraper(URL: str) -> set[str]:
     driver = webdriver.Firefox()
     driver.get("https://www.linkedin.com/uas/login")
@@ -31,7 +32,7 @@ def linkedin_scraper(URL: str) -> set[str]:
     ).text.strip()
 
     SCROLL_PAUSE_TIME = 1
-    driver.find_element(By.CSS_SELECTOR, 'html').send_keys(Keys.END)
+    driver.find_element(By.CSS_SELECTOR, "html").send_keys(Keys.END)
     last_height = driver.execute_script("return document.body.scrollHeight")
     while 1:
         driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -39,11 +40,13 @@ def linkedin_scraper(URL: str) -> set[str]:
         new_height = driver.execute_script("return document.body.scrollHeight")
         if new_height == last_height:
             try:
-                driver.find_element(By.CSS_SELECTOR, "button.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button").click()
+                driver.find_element(
+                    By.CSS_SELECTOR,
+                    "button.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button",
+                ).click()
             except:
                 break
         last_height = new_height
-
 
     res = driver.find_elements(By.CSS_SELECTOR, 'span[dir="ltr"]')
     num_posts = len(res)

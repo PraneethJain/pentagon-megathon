@@ -8,6 +8,7 @@ import time
 EMAIL = "vreal7505@gmail.com"
 PASSWORD = "scrapekaruisaccountse123@"
 
+
 def facebook_scraper(URL: str) -> set[str]:
     driver = webdriver.Firefox()
     driver.get("http://facebook.com")
@@ -21,7 +22,6 @@ def facebook_scraper(URL: str) -> set[str]:
     time.sleep(5)
     driver.get(URL)
     time.sleep(5)
-
 
     texts = set()
     SCROLL_PAUSE_TIME = 2
