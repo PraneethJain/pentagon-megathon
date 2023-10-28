@@ -12,7 +12,7 @@ PASSWORD = "scrapekaruisaccountse123@"
 
 def twitter_scraper(URL: str) -> set[str]:
     driver = webdriver.Firefox()
-    driver.get("https://twitter.com/i/flow/login")
+    driver.get("https://twitter.com/i/flow/login?redirect_after_login=%2Flflow%2Flogin")
     wait = WebDriverWait(driver, 30)
     email_field = wait.until(
         EC.visibility_of_element_located((By.CSS_SELECTOR, "input"))
