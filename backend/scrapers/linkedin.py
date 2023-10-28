@@ -24,12 +24,15 @@ def linkedin_scraper(URL: str) -> set[str]:
     driver.get(URL)
     time.sleep(5)
 
-    profile_name = driver.find_element(
-        By.CSS_SELECTOR, ".single-line-truncate.t-16.t-black.t-bold.mt2"
-    ).text.strip()
-    profile_job_title = driver.find_element(
-        By.CSS_SELECTOR, ".t-14.t-black--light.t-normal.mb1"
-    ).text.strip()
+    try:
+        profile_name = driver.find_element(
+            By.CSS_SELECTOR, ".single-line-truncate.t-16.t-black.t-bold.mt2"
+        ).text.strip()
+        profile_job_title = driver.find_element(
+            By.CSS_SELECTOR, ".t-14.t-black--light.t-normal.mb1"
+        ).text.strip()
+    except:
+        return set()
 
     SCROLL_PAUSE_TIME = 1
     driver.find_element(By.CSS_SELECTOR, "html").send_keys(Keys.END)
