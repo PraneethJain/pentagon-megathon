@@ -11,6 +11,9 @@ PASSWORD = "harshharsh"
 
 
 def linkedin_scraper(URL: str) -> set[str]:
+    if URL[-1] != '/':
+        URL += '/'
+    URL += "recent-activity/all/"
     driver = webdriver.Firefox()
     driver.get("https://www.linkedin.com/uas/login")
     wait = WebDriverWait(driver, 30)
@@ -71,4 +74,4 @@ def linkedin_scraper(URL: str) -> set[str]:
 
 
 if __name__ == "__main__":
-    linkedin_scraper("https://www.linkedin.com/in/sujitgujar/recent-activity/all/")
+    linkedin_scraper("https://www.linkedin.com/in/sujitgujar/")
