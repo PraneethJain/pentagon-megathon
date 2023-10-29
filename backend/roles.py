@@ -10,7 +10,7 @@ def get_roles(data) -> tuple[str, str]:
     }
 
     # extraversion
-    extraversion = data["extraversion"] * 100
+    extraversion = data["e"]
     if extraversion > 80:
         roles["Sales Representative"] += 1
     elif extraversion > 70:
@@ -22,7 +22,7 @@ def get_roles(data) -> tuple[str, str]:
         roles["Researcher (R&D)"] += 1
 
     # agreeableness
-    agr = data["agreeableness"] * 100
+    agr = data["a"]
     if agr > 80:
         roles["Human resource manager (HR)"] += 1
     elif agr > 60:
@@ -32,7 +32,7 @@ def get_roles(data) -> tuple[str, str]:
         roles["Researcher (R&D)"] += 1
 
     # Neuroticism
-    neu = data["neuroticism"] * 100
+    neu = data["n"]
     if neu > 80:
         roles["Customer Service"] += 1
     elif neu > 70:
@@ -43,14 +43,14 @@ def get_roles(data) -> tuple[str, str]:
         roles["Sales Representative"] += 1
 
     # Conscientiousness
-    con = data["conscientiousness"] * 100
+    con = data["c"]
     if con > 80:
         roles["Front-End developer"] += 1
     elif con > 70:
         roles["Researcher (R&D)"] += 1
 
     # Openness
-    op = data["openness"] * 100
+    op = data["o"]
     if op > 75:
         roles["Front-End developer"] += 1
         roles["Back-End developer"] += 1

@@ -10,18 +10,25 @@ from mynltk.tost import do_classify
 from roles import get_roles
 from rich import print
 
+def bias(final_res: dict[str, float], current_ocean_data: dict[str, int]):
+    print(final_res)
+    print(current_ocean_data)
+    for k, v in currrent_ocean_data:
+        final_res[k] += v
 
 def listener(event):
     path_updated = event.path
     print(f"{path_updated} updated.")
 
-    data = ref.get()["Users"]
+    userData = userRef.get()
+    oceanData = oceanRef.get()
     if "current_user_app" in path_updated:
-        current_user_data = data["current_user_app"]
+        current_user_data = userData["current_user_app"]
+        current_ocean_data = oceanData["current_user_app"]
     elif "current_user_web" in path_updated:
-        current_user_data = data["current_user_web"]
+        current_user_data = userData["current_user_web"]
+        current_ocean_data = oceanData["current_user_web"]
     else:
-        print("Invalid data updated!")
         return
 
     # all_texts = set()
@@ -85,8 +92,12 @@ def listener(event):
             for k, v in cur_res.items():
                 final_res[k] += v
 
+
     for key in final_res.keys():
         final_res[key] /= len(all_texts)
+        final_res[key] *= 100
+
+    bias(final_res, current_ocean_data)
 
     with open("result.json", "w") as fp:
         json.dump(final_res, fp)
@@ -105,7 +116,8 @@ if __name__ == "__main__":
         },
     )
 
-    ref = db.reference()
+    userRef = db.reference("Users")
+    oceanRef = db.reference("Oceans")
 
     API_KEY = "AIzaSyD0Ky_uXkK_L1f2yzZkOWNdv8fxPgHM3Ns"
 
@@ -117,4 +129,4 @@ if __name__ == "__main__":
         static_discovery=False,
     )
 
-    ref.listen(listener)
+    oceanRef.listen(listener)

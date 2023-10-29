@@ -29,11 +29,11 @@ def classify_text(text):
 def do_classify(text: str) -> dict[str, int]:
     result = classify_text(text)
     m = {
-        0: "extraversion",
-        1: "neuroticism",
-        2: "agreeableness",
-        3: "conscientiousness",
-        4: "openness",
+        0: "e",
+        1: "n",
+        2: "a",
+        3: "c",
+        4: "o",
     }
     res = {}
     for i, x in enumerate(result):
