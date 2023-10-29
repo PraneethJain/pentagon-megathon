@@ -3,8 +3,8 @@
 Psyche-Screener is a tool that emulates a virtual interview, which has the following rounds into it
 
 - Round 1: Using social handles
-    - Pass 1: Sanity test
-    - Pass 2: Social media check
+    - Pass 1: Sanity test (Perspective API)
+    - Pass 2: Social media check (NLTK)
 - Round 2: Personality test
     - ‘OCEAN’ mapper
     - Sitation-based Interview

@@ -62,18 +62,6 @@ analyze_request = {
 }
 
 response = client.comments().analyze(body=analyze_request).execute()
-#print(json.dumps(response, indent=2))
-
-#toxicity_index = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
-#if toxicity_index > 0.8:
-#    # reject
-#    print("REJECTED!")
-#    raise SystemExit
-#elif toxicity_index > 0.5:
-#    # maybe
-#    print("Manual Review Needed!")
-#else:
-#    print("First layer of screening passed!")
 
 reject_attributes = []
 total_index = 0
