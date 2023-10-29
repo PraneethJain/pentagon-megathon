@@ -17,7 +17,7 @@ def get_roles(data) -> tuple[str, str]:
         roles["Customer Service"] += 1
         roles["Human resource manager (HR)"] += 1
     elif extraversion > 60:
-        roles["Projet Manager"] += 1
+        roles["Project Manager"] += 1
     elif extraversion < 40:
         roles["Researcher (R&D)"] += 1
 
