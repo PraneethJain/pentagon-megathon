@@ -68,3 +68,6 @@ def linkedin_scraper(URL: str) -> set[str]:
 
     driver.close()
     return set(original_posts + reposts)
+
+if __name__ == "__main__":
+    linkedin_scraper("https://www.linkedin.com/in/sujitgujar/recent-activity/all/")
