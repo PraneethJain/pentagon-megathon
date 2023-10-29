@@ -46,7 +46,7 @@ def listener(event):
     # with open("temp.txt", "r") as f:
     #     all_texts.update(line.strip() for line in f.readlines())
 
-    all_texts_string = " ".join(all_texts)
+    all_texts_string = " ".join(all_texts)[:20000]
     if not all_texts_string:
         print("Not enough information to make reasonable inferences! Exiting")
         exit(0)
