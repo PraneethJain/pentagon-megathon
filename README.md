@@ -50,8 +50,6 @@ calculated in a model trained with ML.
 This app has a basic **puzzle based test**, which is used for personality classification. The output of this test is sent to the database, where 
 other phases of this **virtual interview**, based on **social media analysis** is calculated.
 
-# Installation
-
 # To Do:
 - [x] App Logo
 - [x] UI interface
