@@ -8,13 +8,16 @@ from scrapers.linkedin import linkedin_scraper
 from scrapers.twitter import twitter_scraper
 from mynltk.tost import do_classify
 from roles import get_roles
+from send_mail import send_mail
 from rich import print
+
 
 def bias(final_res: dict[str, float], current_ocean_data: dict[str, int]):
     print(final_res)
     print(current_ocean_data)
-    for k, v in currrent_ocean_data:
+    for k, v in current_ocean_data.items():
         final_res[k] += v
+
 
 def listener(event):
     path_updated = event.path
@@ -31,20 +34,25 @@ def listener(event):
     else:
         return
 
-    # all_texts = set()
-    # if current_user_data["facebook"]:
-    #     all_texts.update(facebook_scraper(current_user_data["facebook"]))
-    # if current_user_data["linkedin"]:
-    #     all_texts.update(linkedin_scraper(current_user_data["linkedin"]))
-    # if current_user_data["twitter"]:
-    #     all_texts.update(twitter_scraper(current_user_data["twitter"]))
-
     all_texts = set()
-    with open("temp.txt", "r") as f:
-        all_texts.update(line.strip() for line in f.readlines())
+    if current_user_data["facebook"]:
+        all_texts.update(facebook_scraper(current_user_data["facebook"]))
+    if current_user_data["linkedin"]:
+        all_texts.update(linkedin_scraper(current_user_data["linkedin"]))
+    if current_user_data["twitter"]:
+        all_texts.update(twitter_scraper(current_user_data["twitter"]))
+
+    # all_texts = set()
+    # with open("temp.txt", "r") as f:
+    #     all_texts.update(line.strip() for line in f.readlines())
+
+    all_texts_string = " ".join(all_texts)
+    if not all_texts_string:
+        print("Not enough information to make reasonable inferences! Exiting")
+        exit(0)
 
     analyze_request = {
-        "comment": {"text": " ".join(all_texts)},
+        "comment": {"text": all_texts_string},
         "requestedAttributes": {
             "TOXICITY": {},
             "SEVERE_TOXICITY": {},
@@ -70,11 +78,17 @@ def listener(event):
 
     average_index = total_index / len(analyze_request["requestedAttributes"])
     if len(reject_attributes):
-        print(
-            "REJECTED! because the following were found by analysing your social media: {}",
-            *reject_attributes,
-            sep=",",
+        send_mail(
+            current_user_data["email"],
+            f"""
+Sorry to inform you, {current_user_data['name']}, you have failed our initial social media toxicity screening.
+These points might help you to analyze why we made this decision.
+{reject_attributes}
+Regards,
+Company XYZ
+              """,
         )
+        return
     elif average_index > 0.5:
         print(
             "You are selected for the next phase of hiring but we have noticed some sensitive content in your public social",
@@ -92,7 +106,6 @@ def listener(event):
             for k, v in cur_res.items():
                 final_res[k] += v
 
-
     for key in final_res.keys():
         final_res[key] /= len(all_texts)
         final_res[key] *= 100
@@ -105,6 +118,19 @@ def listener(event):
     role1, role2 = get_roles(final_res)
     print(f"Most Suitable Job: {role1}")
     print(f"Alternative Job: {role2}")
+    send_mail(
+        current_user_data["email"],
+        f"""
+Congratulations {current_user_data['name']}! You have passed both rounds of Psyche-Screener.
+We have selected the following roles for you:
+1. {role1}
+2. {role2}
+We look forward to seeing you in our interview process. Best of luck!
+
+Regards,
+Company XYZ
+              """,
+    )
 
 
 if __name__ == "__main__":

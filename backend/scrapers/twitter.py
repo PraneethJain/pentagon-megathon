@@ -38,3 +38,7 @@ def twitter_scraper(URL: str) -> set[str]:
 
     driver.close()
     return texts
+
+
+if __name__ == "__main__":
+    twitter_scraper("https://twitter.com/sodanikshitij")
