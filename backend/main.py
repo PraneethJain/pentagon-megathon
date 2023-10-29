@@ -8,6 +8,7 @@ from scrapers.linkedin import linkedin_scraper
 from scrapers.twitter import twitter_scraper
 from mynltk.tost import do_classify
 from roles import get_roles
+from send_mail import send_mail
 from rich import print
 
 def bias(final_res: dict[str, float], current_ocean_data: dict[str, int]):
@@ -69,12 +70,15 @@ def listener(event):
             total_index += attribute_index
 
     average_index = total_index / len(analyze_request["requestedAttributes"])
-    if len(reject_attributes):
-        print(
-            "REJECTED! because the following were found by analysing your social media: {}",
-            *reject_attributes,
-            sep=",",
-        )
+    if not len(reject_attributes):
+        send_mail(current_user_data["email"], f"""
+Sorry to inform you, {current_user_data['name']}, you have failed our initial social media toxicity screening.
+These points might help you to analyze why we made this decision.
+{reject_attributes}
+Regards,
+Company XYZ
+              """)
+        return
     elif average_index > 0.5:
         print(
             "You are selected for the next phase of hiring but we have noticed some sensitive content in your public social",
@@ -105,6 +109,16 @@ def listener(event):
     role1, role2 = get_roles(final_res)
     print(f"Most Suitable Job: {role1}")
     print(f"Alternative Job: {role2}")
+    send_mail(current_user_data["email"], f"""
+Congratulations {current_user_data['name']}! You have passed both rounds of Psyche-Screener.
+We have selected the following roles for you:
+1. {role1}
+2. {role2}
+We look forward to seeing you in our interview process. Best of luck!
+
+Regards,
+Company XYZ
+              """)
 
 
 if __name__ == "__main__":
