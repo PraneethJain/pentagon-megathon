@@ -75,15 +75,21 @@ for attribute in analyze_request["requestedAttributes"].keys():
 
 average_index = total_index / len(analyze_request["requestedAttributes"])
 if len(reject_attributes):
-    print("REJECTED! because the following were found by analysing your social media: {}", *reject_attributes, sep = ',' )
+    print(
+        "REJECTED! because the following were found by analysing your social media: {}",
+        *reject_attributes,
+        sep=","
+    )
 elif average_index > 0.5:
-    print("You are selected for the next phase of hiring but we have noticed some sensitive content in your public social",
-          "media. But don't worry we will have an in depth discussion where you get to explain yourself.")
+    print(
+        "You are selected for the next phase of hiring but we have noticed some sensitive content in your public social",
+        "media. But don't worry we will have an in depth discussion where you get to explain yourself.",
+    )
 else:
     print("Congratulations, You have passed the first phase of the interview")
 
 
-# phase 2 
+# phase 2
 final_res: dict[str, int] = {}
 for text in all_texts:
     if not final_res:
@@ -96,6 +102,5 @@ for text in all_texts:
 for key in final_res.keys():
     final_res[key] /= len(all_texts)
 
-with open('result.json', 'w') as fp:
+with open("result.json", "w") as fp:
     json.dump(final_res, fp)
-
