@@ -19,6 +19,7 @@ Psyche-Screener is a tool that emulates a virtual interview, which has the follo
 = (Optional) Create a virtual environment for this project. `python3 -m venv venv`
 - (Optional) Activate the virtual environment. `source venv/bin/activate` on linux.
 - Install dependencies. `pip install -r requirements.txt`
+- Add your GCP Service API JSON file in `main.py`
 - Run the server using `python3 main.py`
 
 This will listen to requests from the clients (the web and android apps). Upon

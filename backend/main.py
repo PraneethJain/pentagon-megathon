@@ -134,7 +134,8 @@ Company XYZ
 
 
 if __name__ == "__main__":
-    cred = credentials.Certificate("/home/praneeth/Downloads/service-account-file.json")
+    SERVICE_ACCOUNT_JSON_PATH = "/home/praneeth/Downloads/service-account-file.json"
+    cred = credentials.Certificate(SERVICE_ACCOUNT_JSON_PATH)
     firebase_admin.initialize_app(
         cred,
         {
