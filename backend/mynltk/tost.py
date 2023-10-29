@@ -38,5 +38,4 @@ def do_classify(text: str) -> dict[str, int]:
     res = {}
     for i, x in enumerate(result):
         res[m[i]] = x
-        print(f"{m[i]}: {x}")
     return res
