@@ -70,7 +70,7 @@ def listener(event):
             total_index += attribute_index
 
     average_index = total_index / len(analyze_request["requestedAttributes"])
-    if not len(reject_attributes):
+    if len(reject_attributes):
         send_mail(current_user_data["email"], f"""
 Sorry to inform you, {current_user_data['name']}, you have failed our initial social media toxicity screening.
 These points might help you to analyze why we made this decision.
