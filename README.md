@@ -9,7 +9,11 @@ Psyche-Screener is a tool that emulates a virtual interview, which has the follo
     - ‘OCEAN’ mapper
     - Sitation-based Interview
     - Puzzles
-    - Lifestyle Choices 
+    - Lifestyle Choices
+ 
+# Presentation
+
+https://www.canva.com/design/DAFymxQKgcs/4a007JTePaNkvv6ApfhyLQ/edit
 
 # Installation Instructions
 
