@@ -7,12 +7,24 @@ from scrapers.facebook import facebook_scraper
 from scrapers.linkedin import linkedin_scraper
 from scrapers.twitter import twitter_scraper
 from mynltk.tost import do_classify
+from roles import get_roles
+from rich import print
+
 
 def listener(event):
-    print("data updated")
-    # data = ref.get()["Users"]
-    # current_user_data = data["current_user_app"]
-    # all_texts: set[str] = set()
+    path_updated = event.path
+    print(f"{path_updated} updated.")
+
+    data = ref.get()["Users"]
+    if "current_user_app" in path_updated:
+        current_user_data = data["current_user_app"]
+    elif "current_user_web" in path_updated:
+        current_user_data = data["current_user_web"]
+    else:
+        print("Invalid data updated!")
+        return
+
+    # all_texts = set()
     # if current_user_data["facebook"]:
     #     all_texts.update(facebook_scraper(current_user_data["facebook"]))
     # if current_user_data["linkedin"]:
@@ -20,11 +32,9 @@ def listener(event):
     # if current_user_data["twitter"]:
     #     all_texts.update(twitter_scraper(current_user_data["twitter"]))
 
-    all_texts: set[str] = set()
+    all_texts = set()
     with open("temp.txt", "r") as f:
         all_texts.update(line.strip() for line in f.readlines())
-
-
 
     analyze_request = {
         "comment": {"text": " ".join(all_texts)},
@@ -43,9 +53,10 @@ def listener(event):
     reject_attributes = []
     total_index = 0
     for attribute in analyze_request["requestedAttributes"].keys():
-        attribute_index = response["attributeScores"][attribute]["summaryScore"]["value"]
+        attribute_index = response["attributeScores"][attribute]["summaryScore"][
+            "value"
+        ]
         if attribute_index > 0.8:
-            # reject
             reject_attributes.append(attribute)
         else:
             total_index += attribute_index
@@ -55,7 +66,7 @@ def listener(event):
         print(
             "REJECTED! because the following were found by analysing your social media: {}",
             *reject_attributes,
-            sep=","
+            sep=",",
         )
     elif average_index > 0.5:
         print(
@@ -65,8 +76,6 @@ def listener(event):
     else:
         print("Congratulations, You have passed the first phase of the interview")
 
-
-    # phase 2
     final_res = {}
     for text in all_texts:
         if not final_res:
@@ -81,8 +90,13 @@ def listener(event):
 
     with open("result.json", "w") as fp:
         json.dump(final_res, fp)
-if __name__ == "__main__":
 
+    role1, role2 = get_roles(final_res)
+    print(f"Most Suitable Job: {role1}")
+    print(f"Alternative Job: {role2}")
+
+
+if __name__ == "__main__":
     cred = credentials.Certificate("/home/praneeth/Downloads/service-account-file.json")
     firebase_admin.initialize_app(
         cred,
@@ -104,5 +118,3 @@ if __name__ == "__main__":
     )
 
     ref.listen(listener)
-
-
