@@ -1,6 +1,6 @@
 # Overview
 
-Psyche-Screener is a tool that emulates a virtual interview, which has the following rounds into it
+Psyche-Screener is a tool that emulates a interview screening process, which has the following rounds into it
 
 - Round 1: Using social handles
     - Pass 1: Sanity test (Perspective API)
