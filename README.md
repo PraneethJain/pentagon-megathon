@@ -42,7 +42,7 @@ other phases of this **virtual interview**, based on **social media analysis** i
 - [x] UI interface
 - [x] Welcome Page, Registration Page
 - [x] Push data to Realtime firebase
-- [ ] Questions
+- [x] Questions
 - [ ] Score Calculation
 - [ ] Presentation
 - [ ] Email sending through GCP
