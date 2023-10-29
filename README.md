@@ -13,7 +13,7 @@ Psyche-Screener is a tool that emulates a virtual interview, which has the follo
  
 # Presentation
 
-[https://www.canva.com/design/DAFymxQKgcs/4a007JTePaNkvv6ApfhyLQ/edit](https://www.canva.com/design/DAFymxQKgcs/4a007JTePaNkvv6ApfhyLQ/edit?utm_content=DAFymxQKgcs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[Link](https://www.canva.com/design/DAFymxQKgcs/4a007JTePaNkvv6ApfhyLQ/edit?utm_content=DAFymxQKgcs&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 # Installation Instructions
 
