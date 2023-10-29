@@ -58,10 +58,10 @@ other phases of this **virtual interview**, based on **social media analysis** i
 - [x] Welcome Page, Registration Page
 - [x] Push data to Realtime firebase
 - [x] Questions
-- [ ] Score Calculation
-- [ ] Presentation
-- [ ] Email sending through GCP
-- [ ] Make a good requirements.txt so that it can be run by testers
-- [ ] Installation Documentation
+- [x] Score Calculation
+- [x] Presentation
+- [x] Email sending through GCP
+- [x] Make a good requirements.txt so that it can be run by testers
+- [x] Installation Documentation
 
 
