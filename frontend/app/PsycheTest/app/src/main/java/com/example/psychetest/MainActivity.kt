@@ -8,9 +8,9 @@ import com.example.psychetest.databinding.ActivityRegistrationBinding
 import com.google.android.gms.common.data.DataBufferSafeParcelable.addValue
 
 class MainActivity : AppCompatActivity() {
-
     private var binding: ActivityMainBinding? = null
-    var calc = calc()
+//    var mycalc = calc()
+//    public var dta : calc2 = calc2(0, 0, 0, 0, 0);
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,23 +20,30 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         binding?.OptA1?.setOnClickListener {
-            calc = addValues(calc, 0,20,0,0,0 )
+//            addValues(mycalc, 0,20,0,0,0 )
+//            dta.addValues(0, 20, 0, 0, 0);
+            CALC2.addValues(0, 20, 0, 0, 0);
             navigateToQuestionTwo()
         }
 
         binding?.OptB1?.setOnClickListener {
-            calc = subtractValue(calc, 0,20,0,0,0 )
+//            subtractValue(mycalc, 0,20,0,0,0 )
+//            dta.subtractValue(0, 20, 0, 0, 0);
+            CALC2.subtractValue(0, 20, 0, 0, 0);
             navigateToQuestionTwo()
 
         }
 
         binding?.OptC1?.setOnClickListener {
-            calc = addValues(calc, 15,0,0,0,0 )
+//            addValues(mycalc, 15,0,0,0,0 )
+//            dta.addValues(15, 0, 0, 0, 0)
+            CALC2.addValues(15, 0, 0, 0, 0)
             navigateToQuestionTwo()
         }
 
         binding?.OptD1?.setOnClickListener {
-            calc = addValues(calc, 0,0,20,0,0 )
+//            dta.addValues(0,0,20,0,0 )
+            CALC2.addValues(0, 0, 20, 0, 0)
             navigateToQuestionTwo()
         }
 
@@ -47,22 +54,20 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    fun addValues(data: calc, o: Int, c: Int, e: Int, a: Int, n: Int): calc {
-        val newValue1 = data.O + o
-        val newValue2 = data.C + c
-        val newValue3 = data.E + e
-        val newValue4 = data.A + a
-        val newValue5 = data.N + n
-        return data.copy(O = newValue1, C = newValue2, E = newValue3, A = newValue4, N = newValue5)
+    fun addValues(data: calc, o: Int, c: Int, e: Int, a: Int, n: Int) {
+        data.O += o
+        data.C += c
+        data.E += e
+        data.A += a
+        data.N += n
     }
 
-    fun subtractValue(data: calc, o: Int, c: Int, e: Int, a: Int, n: Int): calc {
-        val newValue1 = data.O - o
-        val newValue2 = data.C - c
-        val newValue3 = data.E - e
-        val newValue4 = data.A - a
-        val newValue5 = data.N - n
-        return data.copy(O = newValue1, C = newValue2, E = newValue3, A = newValue4, N = newValue5)
+    fun subtractValue(data: calc, o: Int, c: Int, e: Int, a: Int, n: Int) {
+        data.O -= o
+        data.C -= c
+        data.E -= e
+        data.A -= a
+        data.N -= n
     }
 
 }
