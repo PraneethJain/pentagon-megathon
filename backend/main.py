@@ -62,20 +62,40 @@ analyze_request = {
 }
 
 response = client.comments().analyze(body=analyze_request).execute()
-print(json.dumps(response, indent=2))
+#print(json.dumps(response, indent=2))
 
-toxicity_index = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
-if toxicity_index > 0.8:
-    # reject
-    print("REJECTED!")
-    raise SystemExit
-elif toxicity_index > 0.5:
-    # maybe
-    print("Manual Review Needed!")
+#toxicity_index = response["attributeScores"]["TOXICITY"]["summaryScore"]["value"]
+#if toxicity_index > 0.8:
+#    # reject
+#    print("REJECTED!")
+#    raise SystemExit
+#elif toxicity_index > 0.5:
+#    # maybe
+#    print("Manual Review Needed!")
+#else:
+#    print("First layer of screening passed!")
+
+reject_attributes = []
+total_index = 0
+for attribute in analyze_request["requestedAttributes"].keys():
+    attribute_index = response["attributeScores"][attribute]["summaryScore"]["value"]
+    if attribute_index > 0.8:
+        # reject
+        reject_attributes.append(attribute)
+    else:
+        total_index += attribute_index
+
+average_index = total_index / len(analyze_request["requestedAttributes"])
+if len(reject_attributes):
+    print("REJECTED! because the following were found by analysing your social media: {}", *reject_attributes, sep = ',' )
+elif average_index > 0.5:
+    print("You are selected for the next phase of hiring but we have noticed some sensitive content in your public social",
+          "media. But don't worry we will have an in depth discussion where you get to explain yourself.")
 else:
-    print("First layer of screening passed!")
+    print("Congratulations, You have passed the first phase of the interview")
 
 
+# phase 2 
 final_res: dict[str, int] = {}
 for text in all_texts:
     if not final_res:
@@ -84,4 +104,10 @@ for text in all_texts:
         cur_res = do_classify(text)
         for k, v in cur_res.items():
             final_res[k] += v
-print(final_res)
+
+for key in final_res.keys():
+    final_res[key] /= len(all_texts)
+
+with open('result.json', 'w') as fp:
+    json.dump(final_res, fp)
+
