@@ -1,5 +1,15 @@
-### Android App + NLTK
-https://github.com/pingu-73/megathon-pentagon-frontend-nltk
+### Android App and Website
+
+[Here](frontend/app/PsycheTest) is the quiz app developed in Kotlin.
+
+[Here](frontend/webiste) is the web version of the app with same functionality.
+
+
+
+### NLTK
+
+This is implementation of the training model using Python-nltk
+[Link](backend/mynltk)
 
 # Overview
 
