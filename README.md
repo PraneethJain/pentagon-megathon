@@ -2,7 +2,7 @@
 
 [Here](frontend/app/PsycheTest) is the quiz app developed in Kotlin.
 
-[Here](frontend/webiste) is the web version of the app with same functionality.
+[Here](frontend/website) is the web version of the app with same functionality.
 
 
 
